@@ -2,9 +2,10 @@ import 'dart:io';
 import 'package:campus_hazard_detection/screens/report_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'services/roboflow_service.dart';
+import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:geolocator/geolocator.dart';
+import 'widgets/bounding_box_painter.dart';
 
 void main() {
   runApp(const CampusSafeApp());
@@ -30,14 +31,6 @@ class CampusSafeApp extends StatelessWidget {
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  static const List<String> hazardClasses = [
-    "Pothole",
-    "Cracked Pavement",
-    "Open Drain",
-    "Sunk Road",
-    "Uncovered Manhole",
-  ];
 
   Future<void> pickImage(BuildContext context) async {
     final image = await ImagePicker().pickImage(
@@ -166,62 +159,35 @@ class HomePage extends StatelessWidget {
               const SizedBox(height: 30),
 
               Card(
-                elevation: 1,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(18),
-                  child: Row(
+                child: const Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
                     children: [
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: Colors.blue.shade50,
-                          borderRadius: BorderRadius.circular(15),
+                      Icon(Icons.auto_awesome, size: 40, color: Colors.blue),
+
+                      SizedBox(height: 10),
+
+                      Text(
+                        "AI-Powered Hazard Detection",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
-                        child: const Icon(Icons.category, size: 30),
                       ),
-                      const SizedBox(width: 15),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Supported Hazards",
-                              style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              "${hazardClasses.length} categories available",
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                          ],
-                        ),
+
+                      SizedBox(height: 10),
+
+                      Text(
+                        "Capture or upload an image and let the system automatically identify campus hazards, assess severity, and generate recommended safety actions.",
+                        textAlign: TextAlign.center,
                       ),
                     ],
                   ),
                 ),
-              ),
-
-              const SizedBox(height: 20),
-
-              Wrap(
-                spacing: 10,
-                runSpacing: 10,
-                children: hazardClasses
-                    .map(
-                      (hazard) => Chip(
-                        avatar: const Icon(
-                          Icons.warning_amber_rounded,
-                          size: 18,
-                        ),
-                        label: Text(hazard),
-                      ),
-                    )
-                    .toList(),
               ),
 
               const SizedBox(height: 25),
@@ -254,6 +220,9 @@ class PreviewScreen extends StatefulWidget {
 }
 
 class _PreviewScreenState extends State<PreviewScreen> {
+  List boxes = [];
+  double imageWidth = 1;
+  double imageHeight = 1;
   bool isLoading = false;
   String result = "Press Detect Hazard";
 
@@ -272,45 +241,32 @@ class _PreviewScreenState extends State<PreviewScreen> {
 
   String selectedZone = "Campus Road";
 
-  final Map<String, Map<String, String>> hazardInfo = {
-    "pothole": {
-      "category": "Road Surface Hazard",
-      "action": "Report to campus maintenance and avoid the damaged area.",
-    },
-
-    "cracked_pavement": {
-      "category": "Road Surface Hazard",
-      "action": "Exercise caution while walking and notify maintenance.",
-    },
-
-    "open_drain": {
-      "category": "Drainage Hazard",
-      "action": "Keep away from the drain and report immediately.",
-    },
-
-    "sunk_road": {
-      "category": "Road Surface Hazard",
-      "action": "Avoid crossing the area and report to maintenance.",
-    },
-
-    "uncovered_manhole": {
-      "category": "Infrastructure Hazard",
-      "action": "Prevent access to the area and notify maintenance urgently.",
-    },
-  };
-
   Future<void> detectHazard() async {
     setState(() {
       isLoading = true;
     });
 
     try {
-      final response = await RoboflowService.predict(widget.image);
-      print(response);
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse('http://192.168.0.113:5000/predict'),
+      );
 
-      final predictions = response["outputs"][0]["model_output"]["predictions"];
+      request.fields['zone'] = selectedZone;
 
-      if (predictions == null || predictions.isEmpty) {
+      request.files.add(
+        await http.MultipartFile.fromPath('image', widget.image.path),
+      );
+
+      var response = await request.send();
+
+      var body = await response.stream.bytesToString();
+      print("STATUS: ${response.statusCode}");
+      print("BODY: $body");
+
+      final apiResult = jsonDecode(body);
+
+      if (apiResult["hazard"] == null) {
         setState(() {
           isLoading = false;
           result = "No hazard detected";
@@ -318,40 +274,30 @@ class _PreviewScreenState extends State<PreviewScreen> {
         return;
       }
 
-      final prediction = predictions[0];
-      hazardClass = prediction["class"].toString();
-      confidence = (prediction["confidence"] ?? 0).toStringAsFixed(2);
+      hazardClass = apiResult["hazard"];
 
-      final location = await getCurrentLocation();
-      final info =
-          hazardInfo[hazardClass] ??
-          {"category": "Unknown", "action": "Further inspection required."};
+      category = apiResult["category"];
 
-      category = info["category"]!;
-      action = info["action"]!;
+      confidence = apiResult["confidence"].toString();
 
-      String formatHazard(String text) {
-        return text
-            .split('_')
-            .map(
-              (word) => word[0].toUpperCase() + word.substring(1).toLowerCase(),
-            )
-            .join(' ');
-      }
+      action = apiResult["action"];
 
-      final formattedHazard = formatHazard(hazardClass);
+      String severity = apiResult["severity"];
 
       setState(() {
         isLoading = false;
-        result = result =
+
+        result =
             "Hazard Class\n"
-            "$formattedHazard\n\n"
+            "$hazardClass\n\n"
             "General Category\n"
             "$category\n\n"
             "Location Zone\n"
             "$selectedZone\n\n"
             "Confidence Score\n"
-            "$confidence%\n\n"
+            "$confidence\n\n"
+            "Severity\n"
+            "$severity\n\n"
             "Expected Action\n"
             "$action";
       });
@@ -411,11 +357,44 @@ class _PreviewScreenState extends State<PreviewScreen> {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(25),
-                child: Image.file(
-                  widget.image,
+                child: SizedBox(
                   height: 320,
                   width: double.infinity,
-                  fit: BoxFit.cover,
+
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: Image.file(widget.image, fit: BoxFit.cover),
+                      ),
+
+                      if (boxes.isNotEmpty)
+                        Positioned.fill(
+                          child: FutureBuilder(
+                            future: decodeImageFromList(
+                              widget.image.readAsBytesSync(),
+                            ),
+
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData) {
+                                return Container();
+                              }
+
+                              final img = snapshot.data!;
+
+                              return CustomPaint(
+                                painter: BoundingBoxPainter(
+                                  boxes: boxes,
+
+                                  imageWidth: img.width.toDouble(),
+
+                                  imageHeight: img.height.toDouble(),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
               ),
             ),

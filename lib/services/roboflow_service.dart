@@ -4,9 +4,9 @@ import 'package:http/http.dart' as http;
 
 class RoboflowService {
   static const String apiUrl =
-      "https://serverless.roboflow.com/erisyas-workspace/workflows/custom-workflow-2";
+      "https://serverless.roboflow.com/jiha/workflows/electrical-and-facilities-hazards-v6-logic";
 
-  static const String apiKey = "zfWWDUrnBOutZraquQzc";
+  static const String apiKey = "tmhMCBZv0wf3tDXzRNM8";
 
   static Future<dynamic> predict(File imageFile) async {
     try {

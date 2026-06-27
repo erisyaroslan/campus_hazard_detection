@@ -1,0 +1,112 @@
+[
+    {
+        "hazard": "Uncovered Manhole",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.878
+    },
+    {
+        "hazard": "Dangling Wire",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.601,
+        "image": "20260627_021922.jpg",
+        "timestamp": "2026-06-27 02:19:32"
+    },
+    {
+        "hazard": "Open Restricted Area",
+        "severity": "Medium",
+        "zone": "Campus Road",
+        "confidence": 0.883,
+        "image": "20260627_021958.jpg",
+        "timestamp": "2026-06-27 02:20:09"
+    },
+    {
+        "hazard": "Open Drain",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.612,
+        "image": "20260627_022056.jpg",
+        "timestamp": "2026-06-27 02:21:04"
+    },
+    {
+        "hazard": "Open Restricted Area",
+        "severity": "Medium",
+        "zone": "Campus Road",
+        "confidence": 0.779,
+        "image": "20260627_022148.jpg",
+        "timestamp": "2026-06-27 02:21:57"
+    },
+    {
+        "hazard": "Open Drain",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.505,
+        "image": "20260627_022221.jpg",
+        "timestamp": "2026-06-27 02:22:30"
+    },
+    {
+        "hazard": "Open Drain",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.505,
+        "image": "20260627_022239.jpg",
+        "timestamp": "2026-06-27 02:22:47"
+    },
+    {
+        "hazard": "Open Restricted Area",
+        "severity": "Medium",
+        "zone": "Campus Road",
+        "confidence": 0.658,
+        "image": "20260627_022251.jpg",
+        "timestamp": "2026-06-27 02:23:03"
+    },
+    {
+        "hazard": "Uncovered Manhole",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.637,
+        "image": "20260627_022316.jpg",
+        "timestamp": "2026-06-27 02:23:23"
+    },
+    {
+        "hazard": "Open Restricted Area",
+        "severity": "Medium",
+        "zone": "Campus Road",
+        "confidence": 0.433,
+        "image": "20260627_022451.jpg",
+        "timestamp": "2026-06-27 02:25:01"
+    },
+    {
+        "hazard": "Uncovered Manhole",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.556,
+        "image": "20260627_040933.jpg",
+        "timestamp": "2026-06-27 04:09:49"
+    },
+    {
+        "hazard": "Uncovered Manhole",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.556,
+        "image": "20260627_041000.jpg",
+        "timestamp": "2026-06-27 04:10:08"
+    },
+    {
+        "hazard": "Open Restricted Area",
+        "severity": "Medium",
+        "zone": "Campus Road",
+        "confidence": 0.433,
+        "image": "20260627_041034.jpg",
+        "timestamp": "2026-06-27 04:10:42"
+    },
+    {
+        "hazard": "Pothole",
+        "severity": "Medium",
+        "zone": "Campus Road",
+        "confidence": 0.625,
+        "image": "20260627_041159.jpg",
+        "timestamp": "2026-06-27 04:12:07"
+    }
+]
