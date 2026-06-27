@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BoundingBoxPainter extends CustomPainter {
-  final List boxes;
-
+  final List<Map<String, dynamic>> boxes;
   final double imageWidth;
   final double imageHeight;
 
@@ -14,53 +13,27 @@ class BoundingBoxPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint =
-        Paint()
-          ..color = Colors.red
-          ..strokeWidth = 3
-          ..style = PaintingStyle.stroke;
+    final paint = Paint()
+      ..color = Colors.red
+      ..strokeWidth = 4
+      ..style = PaintingStyle.stroke;
 
-    final textPainter = TextPainter(
-      textDirection: TextDirection.ltr,
-    );
+    final scaleX = size.width / imageWidth;
+    final scaleY = size.height / imageHeight;
 
-    double scaleX = size.width / imageWidth;
-    double scaleY = size.height / imageHeight;
+    for (final box in boxes) {
+      final bbox = List<double>.from(box["bbox"]);
+      final cX = bbox[0];
+      final cY = bbox[1];
+      final w = bbox[2];
+      final h = bbox[3];
 
-    for (var box in boxes) {
-      final bbox = box["bbox"];
+      final left = (cX - w / 2) * scaleX;
+      final top = (cY - h / 2) * scaleY;
 
-      double cx = bbox[0].toDouble();
-      double cy = bbox[1].toDouble();
-      double w = bbox[2].toDouble();
-      double h = bbox[3].toDouble();
+      final rect = Rect.fromLTWH(left, top, w * scaleX, h * scaleY);
 
-      double left = (cx - w / 2) * scaleX;
-      double top = (cy - h / 2) * scaleY;
-      double right = (cx + w / 2) * scaleX;
-      double bottom = (cy + h / 2) * scaleY;
-
-      canvas.drawRect(
-        Rect.fromLTRB(left, top, right, bottom),
-        paint,
-      );
-
-      textPainter.text = TextSpan(
-        text:
-            "${box["class"]} ${(box["confidence"] * 100).toStringAsFixed(1)}%",
-        style: const TextStyle(
-          color: Colors.red,
-          fontSize: 14,
-          backgroundColor: Colors.white,
-        ),
-      );
-
-      textPainter.layout();
-
-      textPainter.paint(
-        canvas,
-        Offset(left, top - 18),
-      );
+      canvas.drawRect(rect, paint);
     }
   }
 

@@ -108,5 +108,101 @@
         "confidence": 0.625,
         "image": "20260627_041159.jpg",
         "timestamp": "2026-06-27 04:12:07"
+    },
+    {
+        "hazard": "Open Restricted Area",
+        "severity": "Medium",
+        "zone": "Campus Road",
+        "confidence": 0.434,
+        "image": "20260627_114811.jpg",
+        "timestamp": "2026-06-27 11:48:19"
+    },
+    {
+        "hazard": "Sunk Road",
+        "severity": "Medium",
+        "zone": "Campus Road",
+        "confidence": 0.404,
+        "image": "20260627_114903.jpg",
+        "timestamp": "2026-06-27 11:49:11"
+    },
+    {
+        "hazard": "Sunk Road",
+        "severity": "Medium",
+        "zone": "Campus Road",
+        "confidence": 0.404,
+        "image": "20260627_115309.jpg",
+        "timestamp": "2026-06-27 11:53:17"
+    },
+    {
+        "hazard": "Open Restricted Area",
+        "severity": "Medium",
+        "zone": "Campus Road",
+        "confidence": 0.434,
+        "image": "20260627_121944.jpg",
+        "timestamp": "2026-06-27 12:19:54"
+    },
+    {
+        "hazard": "Sunk Road",
+        "severity": "Medium",
+        "zone": "Campus Road",
+        "confidence": 0.404,
+        "image": "20260627_124328.jpg",
+        "timestamp": "2026-06-27 12:43:35"
+    },
+    {
+        "hazard": "Open Restricted Area",
+        "severity": "Medium",
+        "zone": "Campus Road",
+        "confidence": 0.434,
+        "image": "20260627_124412.jpg",
+        "timestamp": "2026-06-27 12:44:21"
+    },
+    {
+        "hazard": "Pothole",
+        "severity": "Medium",
+        "zone": "Campus Road",
+        "confidence": 0.837,
+        "image": "20260627_124959.jpg",
+        "timestamp": "2026-06-27 12:50:07"
+    },
+    {
+        "hazard": "Pothole",
+        "severity": "Medium",
+        "zone": "Campus Road",
+        "confidence": 0.674,
+        "image": "20260627_131500.jpg",
+        "timestamp": "2026-06-27 13:15:22"
+    },
+    {
+        "hazard": "Pothole",
+        "severity": "Medium",
+        "zone": "Campus Road",
+        "confidence": 0.835,
+        "image": "20260627_132934.jpg",
+        "timestamp": "2026-06-27 13:29:55"
+    },
+    {
+        "hazard": "Pothole",
+        "severity": "Medium",
+        "zone": "Campus Road",
+        "confidence": 0.739,
+        "image": "20260627_133442.jpg",
+        "timestamp": "2026-06-27 13:34:55"
+    },
+    {
+        "hazard": "Pothole",
+        "severity": "Medium",
+        "zone": "Campus Road",
+        "confidence": 0.734,
+        "image": "20260627_134015.jpg",
+        "timestamp": "2026-06-27 13:40:22"
+    },
+    {
+        "hazard": "Pothole",
+        "severity": "Medium",
+        "zone": "Campus Road",
+        "confidence": 0.714,
+        "image": "20260627_140806.jpg",
+        "timestamp": "2026-06-27 14:08:21"
     }
 ]

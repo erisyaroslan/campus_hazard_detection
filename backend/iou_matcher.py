@@ -1,4 +1,11 @@
+from itertools import combinations
+
+
 def calculate_iou(box1, box2):
+    """
+    box format:
+    [center_x, center_y, width, height]
+    """
 
     x1_min = box1[0] - box1[2] / 2
     y1_min = box1[1] - box1[3] / 2
@@ -12,6 +19,7 @@ def calculate_iou(box1, box2):
 
     inter_x1 = max(x1_min, x2_min)
     inter_y1 = max(y1_min, y2_min)
+
     inter_x2 = min(x1_max, x2_max)
     inter_y2 = min(y1_max, y2_max)
 
@@ -23,17 +31,8 @@ def calculate_iou(box1, box2):
         inter_y2 - inter_y1
     )
 
-    area1 = (
-        x1_max - x1_min
-    ) * (
-        y1_max - y1_min
-    )
-
-    area2 = (
-        x2_max - x2_min
-    ) * (
-        y2_max - y2_min
-    )
+    area1 = (x1_max - x1_min) * (y1_max - y1_min)
+    area2 = (x2_max - x2_min) * (y2_max - y2_min)
 
     union = area1 + area2 - inter_area
 
@@ -42,30 +41,67 @@ def calculate_iou(box1, box2):
 
     return inter_area / union
 
-def match_boxes(predictions):
+def match_boxes(predictions, threshold=0.5):
 
-    matches = []
+    matched = []
 
-    for i in range(len(predictions)):
+    used = set()
 
-        for j in range(i + 1, len(predictions)):
+    for i, j in combinations(range(len(predictions)), 2):
 
-            iou = calculate_iou(
-                predictions[i]["bbox"],
-                predictions[j]["bbox"]
+        if i in used or j in used:
+            continue
+
+        p1 = predictions[i]
+        p2 = predictions[j]
+
+        if p1["class"] != p2["class"]:
+            continue
+
+        iou = calculate_iou(
+            p1["bbox"],
+            p2["bbox"]
+        )
+
+        if iou >= threshold:
+
+            confidence = max(
+                p1["confidence"],
+                p2["confidence"]
             )
 
-            if iou >= 0.5:
+            matched.append({
 
-                matches.append({
+                "class": p1["class"],
 
-                    "prediction_1":
-                        predictions[i],
+                "confidence": confidence,
 
-                    "prediction_2":
-                        predictions[j],
+                "bbox": p1["bbox"],
 
-                    "iou":
-                        round(iou, 3)
-                })
-    return matches
+                "models": [
+                    p1["model"],
+                    p2["model"]
+                ]
+            })
+
+            used.add(i)
+            used.add(j)
+
+    for k, p in enumerate(predictions):
+
+        if k not in used:
+
+            matched.append({
+
+                "class": p["class"],
+
+                "confidence": p["confidence"],
+
+                "bbox": p["bbox"],
+
+                "models": [
+                    p["model"]
+                ]
+            })
+
+    return matched

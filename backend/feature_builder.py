@@ -19,8 +19,8 @@ def build_features(
             p["class"]
         )
 
-        models.append(
-            p["model"]
+        models.extend(
+            p["models"]
         )
 
     if len(predictions) == 0:

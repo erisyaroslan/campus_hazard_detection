@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui' as ui;
 import 'package:campus_hazard_detection/screens/report_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -220,12 +221,13 @@ class PreviewScreen extends StatefulWidget {
 }
 
 class _PreviewScreenState extends State<PreviewScreen> {
-  List boxes = [];
-  double imageWidth = 1;
-  double imageHeight = 1;
+  List<Map<String, dynamic>> detectedHazards = [];
+  List<Map<String, dynamic>> boxes = [];
+  double imageWidth = 0;
+  double imageHeight = 0;
   bool isLoading = false;
   String result = "Press Detect Hazard";
-
+  String severity = "";
   String hazardClass = "";
   String category = "";
   String action = "";
@@ -265,6 +267,11 @@ class _PreviewScreenState extends State<PreviewScreen> {
       print("BODY: $body");
 
       final apiResult = jsonDecode(body);
+      print(apiResult["boxes"]);
+      print(apiResult);
+      print(apiResult.keys);
+      print("Hazard = ${apiResult["hazard"]}");
+      print("Hazards = ${apiResult["hazards"]}");
 
       if (apiResult["hazard"] == null) {
         setState(() {
@@ -273,23 +280,50 @@ class _PreviewScreenState extends State<PreviewScreen> {
         });
         return;
       }
+      detectedHazards = List<Map<String, dynamic>>.from(
+        apiResult["hazards"] ?? [],
+      );
 
+      // Primary hazard
       hazardClass = apiResult["hazard"];
+
+      // All detected hazards
+      final List<Map<String, dynamic>> hazards =
+          List<Map<String, dynamic>>.from(apiResult["hazards"] ?? []);
+
+      String hazardList = "";
+
+      for (final h in hazards) {
+        hazardList +=
+            "• ${h["hazard"]} (${(h["confidence"] * 100).toStringAsFixed(1)}%)\n";
+      }
 
       category = apiResult["category"];
 
       confidence = apiResult["confidence"].toString();
 
       action = apiResult["action"];
+      if (apiResult["boxes"] != null) {
+        boxes = List<Map<String, dynamic>>.from(apiResult["boxes"]);
 
-      String severity = apiResult["severity"];
+        final decoded = await decodeImageFromList(
+          widget.image.readAsBytesSync(),
+        );
+
+        imageWidth = decoded.width.toDouble();
+        imageHeight = decoded.height.toDouble();
+      }
+
+      severity = apiResult["severity"];
 
       setState(() {
         isLoading = false;
 
         result =
-            "Hazard Class\n"
+            "Primary Hazard\n"
             "$hazardClass\n\n"
+            "Detected Hazards\n"
+            "$hazardList\n"
             "General Category\n"
             "$category\n\n"
             "Location Zone\n"
@@ -307,6 +341,25 @@ class _PreviewScreenState extends State<PreviewScreen> {
         result = "ERROR\n\n$e";
       });
     }
+  }
+
+  Future<void> loadImageSize() async {
+    final bytes = await widget.image.readAsBytes();
+
+    final codec = await ui.instantiateImageCodec(bytes);
+
+    final frame = await codec.getNextFrame();
+
+    setState(() {
+      imageWidth = frame.image.width.toDouble();
+      imageHeight = frame.image.height.toDouble();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadImageSize();
   }
 
   Future<String> getCurrentLocation() async {
@@ -360,44 +413,34 @@ class _PreviewScreenState extends State<PreviewScreen> {
                 child: SizedBox(
                   height: 320,
                   width: double.infinity,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Image.file(widget.image, fit: BoxFit.fill),
 
-                  child: Stack(
-                    children: [
-                      Positioned.fill(
-                        child: Image.file(widget.image, fit: BoxFit.cover),
-                      ),
-
-                      if (boxes.isNotEmpty)
-                        Positioned.fill(
-                          child: FutureBuilder(
-                            future: decodeImageFromList(
-                              widget.image.readAsBytesSync(),
-                            ),
-
-                            builder: (context, snapshot) {
-                              if (!snapshot.hasData) {
-                                return Container();
-                              }
-
-                              final img = snapshot.data!;
-
-                              return CustomPaint(
-                                painter: BoundingBoxPainter(
-                                  boxes: boxes,
-
-                                  imageWidth: img.width.toDouble(),
-
-                                  imageHeight: img.height.toDouble(),
+                          if (boxes.isNotEmpty)
+                            Positioned.fill(
+                              child: IgnorePointer(
+                                child: CustomPaint(
+                                  painter: BoundingBoxPainter(
+                                    boxes: boxes,
+                                    imageWidth: imageWidth,
+                                    imageHeight: imageHeight,
+                                  ),
                                 ),
-                              );
-                            },
-                          ),
-                        ),
-                    ],
+                              ),
+                            ),
+                        ],
+                      );
+                    },
                   ),
                 ),
               ),
             ),
+
+            const SizedBox(height: 25),
 
             const SizedBox(height: 25),
 
@@ -460,10 +503,91 @@ class _PreviewScreenState extends State<PreviewScreen> {
 
                     const SizedBox(height: 20),
 
-                    Text(
-                      result,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: 18, height: 1.6),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Primary Hazard",
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+
+                        const SizedBox(height: 10),
+
+                        Card(
+                          color: Colors.orange.shade50,
+                          child: ListTile(
+                            leading: const Icon(
+                              Icons.warning,
+                              color: Colors.orange,
+                            ),
+                            title: Text(hazardClass),
+                            subtitle: Text(
+                              "Confidence: ${(double.parse(confidence) * 100).toStringAsFixed(1)}%",
+                            ),
+                            trailing: Text(
+                              severity,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(height: 25),
+
+                        const Text(
+                          "Detected Hazards",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+
+                        const SizedBox(height: 10),
+
+                        ...detectedHazards.map((hazard) {
+                          return Card(
+                            child: ListTile(
+                              leading: const Icon(Icons.report_problem),
+
+                              title: Text(hazard["hazard"]),
+
+                              subtitle: Text(
+                                "Confidence: ${(hazard["confidence"] * 100).toStringAsFixed(1)}%",
+                              ),
+                            ),
+                          );
+                        }),
+
+                        const SizedBox(height: 25),
+
+                        Card(
+                          child: ListTile(
+                            leading: const Icon(Icons.location_on),
+                            title: const Text("Campus Zone"),
+                            subtitle: Text(selectedZone),
+                          ),
+                        ),
+
+                        Card(
+                          child: ListTile(
+                            leading: const Icon(Icons.category),
+                            title: const Text("Category"),
+                            subtitle: Text(category),
+                          ),
+                        ),
+
+                        Card(
+                          child: ListTile(
+                            leading: const Icon(Icons.auto_awesome),
+                            title: const Text("Recommended Action"),
+                            subtitle: Text(action),
+                          ),
+                        ),
+                      ],
                     ),
 
                     const SizedBox(height: 25),

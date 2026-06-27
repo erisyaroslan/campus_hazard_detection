@@ -55,18 +55,40 @@ def classify(predictions, features):
         "Medium"
     )
 
+    best_prediction = max(
+        predictions,
+        key=lambda p: p["confidence"]
+    )
+
+    all_hazards = []
+
+    for p in predictions:
+             all_hazards.append({
+                "hazard": p["class"],
+                "confidence": round(p["confidence"], 3),
+                "severity": SEVERITY_RULES.get(
+                     p["class"],
+                        "Medium"
+                )
+    })
+
     return {
 
-        "hazard":final_label,
+    "hazard": best_prediction["class"],
 
-        "confidence":round(
-            average_confidence,
-            3
-        ),
+    "confidence": round(
+        best_prediction["confidence"],
+        3
+    ),
 
-        "agreement":features["agreement_count"],
+    "severity": SEVERITY_RULES.get(
+        best_prediction["class"],
+        "Medium"
+    ),
 
-        "severity":severity,
+    "zone": features["zone"],
 
-        "zone":features["zone"]
-    }
+    "boxes": predictions,
+
+    "hazards": all_hazards
+}

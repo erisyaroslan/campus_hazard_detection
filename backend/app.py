@@ -69,6 +69,11 @@ def predict():
         predictions
     )
 
+    predictions = match_boxes(
+        predictions
+    )
+    print(predictions)
+
     features = build_features(
         predictions,
         zone
@@ -115,8 +120,9 @@ def predict():
 
     return jsonify({
 
-        "hazard":
-            result["hazard"],
+        "hazards": result["hazards"],
+
+        "hazard": result["hazard"],
 
         "category":
             category,
@@ -134,7 +140,9 @@ def predict():
             action,
 
         "image":
-            filename
+            filename,
+
+         "boxes": result["boxes"]
     })
 
 if __name__ == "__main__":
