@@ -1,5 +1,12 @@
-from collections import Counter
+import numpy as np
+import pickle
 
+from tensorflow.keras.models import load_model
+
+model = load_model("meta_classifier.keras")
+
+with open("label_encoder.pkl", "rb") as f:
+    encoder = pickle.load(f)
 
 SEVERITY_RULES = {
 
@@ -37,28 +44,41 @@ def classify(predictions, features):
 
             "severity":"None",
 
-            "zone":features["zone"],
+            "zone": features[2],
 
             "boxes":None
         }
 
-    labels = [p["class"] for p in predictions]
+    feature_vector = np.array(features).reshape(1, -1)
 
-    confidences = [p["confidence"] for p in predictions]
+    prediction = model.predict(feature_vector, verbose=0)
 
-    final_label = Counter(labels).most_common(1)[0][0]
+    predicted_index = np.argmax(prediction)
 
-    average_confidence = sum(confidences)/len(confidences)
+    predicted_label = encoder.inverse_transform([predicted_index])[0]
 
-    severity = SEVERITY_RULES.get(
-        final_label,
-        "Medium"
-    )
+    predicted_confidence = float(np.max(prediction))
 
-    best_prediction = max(
-        predictions,
-        key=lambda p: p["confidence"]
-    )
+    print("\n========== NEURAL NETWORK META CLASSIFIER ==========")
+    print("Input Features:")
+    print(feature_vector)
+
+    print("\nPrediction Probabilities:")
+    print(prediction)
+
+    print("\nPredicted Class:")
+    print(predicted_label)
+
+    print("Predicted Confidence:")
+    print(predicted_confidence)
+
+    print("===================================================\n")
+
+    highest_yolo = max(predictions, key=lambda p: p["confidence"])
+
+    print("Highest YOLO Prediction:")
+    print(highest_yolo["class"])
+    print(highest_yolo["confidence"])
 
     all_hazards = []
 
@@ -74,19 +94,13 @@ def classify(predictions, features):
 
     return {
 
-    "hazard": best_prediction["class"],
+    "hazard": predicted_label,
 
-    "confidence": round(
-        best_prediction["confidence"],
-        3
-    ),
+    "confidence": round(predicted_confidence,3),
 
-    "severity": SEVERITY_RULES.get(
-        best_prediction["class"],
-        "Medium"
-    ),
+    "severity": SEVERITY_RULES.get(predicted_label, "Medium"),
 
-    "zone": features["zone"],
+    "zone": "",
 
     "boxes": predictions,
 

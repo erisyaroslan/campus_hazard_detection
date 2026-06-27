@@ -1,9 +1,9 @@
 import json
 import os
+import csv
 from datetime import datetime
 
 LOG_FILE = "logs/detections.json"
-
 
 def save_detection(record):
 
@@ -36,3 +36,28 @@ def save_detection(record):
             f,
             indent=4
         )
+
+def save_training_data(features, final_label):
+
+    file = "meta_classifier_training.csv"
+
+    exists = os.path.exists(file)
+
+    with open(file, "a", newline="") as f:
+
+        writer = csv.writer(f)
+
+        if not exists:
+            writer.writerow([
+                "average_confidence",
+                "agreement_count",
+                "zone",
+                "label"
+            ])
+
+        writer.writerow([
+            features["average_confidence"],
+            features["agreement_count"],
+            features["zone"],
+            final_label
+        ])

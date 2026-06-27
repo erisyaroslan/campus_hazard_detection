@@ -525,7 +525,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
                             ),
                             title: Text(hazardClass),
                             subtitle: Text(
-                              "Confidence: ${(double.parse(confidence) * 100).toStringAsFixed(1)}%",
+                              "Confidence: ${((double.tryParse(confidence) ?? 0.0) * 100).toStringAsFixed(1)}%",
                             ),
                             trailing: Text(
                               severity,

@@ -6,7 +6,7 @@ LABEL_MAP = {
     "dangling_wire":
         "Dangling Wire",
 
-    "exposed_live_wire":
+    "exposed_wire":
         "Exposed Live Wire",
 
     "damaged_electrical_box":
@@ -27,13 +27,13 @@ LABEL_MAP = {
     "open_drain":
         "Open Drain",
 
-    "crack_pavement":
+    "cracked_pavement":
         "Crack Pavement",
 
     "broken_fence":
         "Broken Fence",
 
-    "missing_barricade":
+    "missing_broken_barricade":
         "Missing Barricade",
 
     "sharp_object":

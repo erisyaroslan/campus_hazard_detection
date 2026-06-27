@@ -204,5 +204,629 @@
         "confidence": 0.714,
         "image": "20260627_140806.jpg",
         "timestamp": "2026-06-27 14:08:21"
+    },
+    {
+        "hazard": "Pothole",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.734,
+        "image": "20260627_152724.jpg",
+        "timestamp": "2026-06-27 15:27:31"
+    },
+    {
+        "hazard": "exposed_wire",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.699,
+        "image": "20260627_152831.jpg",
+        "timestamp": "2026-06-27 15:28:38"
+    },
+    {
+        "hazard": "Uncovered Manhole",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.633,
+        "image": "20260627_153043.jpg",
+        "timestamp": "2026-06-27 15:30:49"
+    },
+    {
+        "hazard": "Uncovered Manhole",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.709,
+        "image": "20260627_153109.jpg",
+        "timestamp": "2026-06-27 15:31:15"
+    },
+    {
+        "hazard": "Uncovered Manhole",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.545,
+        "image": "20260627_153134.jpg",
+        "timestamp": "2026-06-27 15:31:41"
+    },
+    {
+        "hazard": "Uncovered Manhole",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.907,
+        "image": "20260627_153237.jpg",
+        "timestamp": "2026-06-27 15:32:45"
+    },
+    {
+        "hazard": "Uncovered Manhole",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.915,
+        "image": "20260627_153304.jpg",
+        "timestamp": "2026-06-27 15:33:10"
+    },
+    {
+        "hazard": "Open Drain",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.457,
+        "image": "20260627_153504.jpg",
+        "timestamp": "2026-06-27 15:35:12"
+    },
+    {
+        "hazard": "Sunk Road",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.465,
+        "image": "20260627_153548.jpg",
+        "timestamp": "2026-06-27 15:35:54"
+    },
+    {
+        "hazard": "Open Restricted Area",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.683,
+        "image": "20260627_153725.jpg",
+        "timestamp": "2026-06-27 15:37:32"
+    },
+    {
+        "hazard": "Open Drain",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.485,
+        "image": "20260627_153827.jpg",
+        "timestamp": "2026-06-27 15:38:33"
+    },
+    {
+        "hazard": "Pothole",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.412,
+        "image": "20260627_154141.jpg",
+        "timestamp": "2026-06-27 15:41:48"
+    },
+    {
+        "hazard": "Broken Fence",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.692,
+        "image": "20260627_154216.jpg",
+        "timestamp": "2026-06-27 15:42:23"
+    },
+    {
+        "hazard": "Exposed Live Wire",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.587,
+        "image": "20260627_154334.jpg",
+        "timestamp": "2026-06-27 15:43:40"
+    },
+    {
+        "hazard": "Pothole",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.548,
+        "image": "20260627_154444.jpg",
+        "timestamp": "2026-06-27 15:44:50"
+    },
+    {
+        "hazard": "Open Drain",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.602,
+        "image": "20260627_154527.jpg",
+        "timestamp": "2026-06-27 15:45:36"
+    },
+    {
+        "hazard": "Pothole",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.584,
+        "image": "20260627_154551.jpg",
+        "timestamp": "2026-06-27 15:46:00"
+    },
+    {
+        "hazard": "Exposed Live Wire",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.555,
+        "image": "20260627_154727.jpg",
+        "timestamp": "2026-06-27 15:47:35"
+    },
+    {
+        "hazard": "Broken Fence",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.57,
+        "image": "20260627_154752.jpg",
+        "timestamp": "2026-06-27 15:47:59"
+    },
+    {
+        "hazard": "Open Restricted Area",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.434,
+        "image": "20260627_154856.jpg",
+        "timestamp": "2026-06-27 15:49:04"
+    },
+    {
+        "hazard": "Sunk Road",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.404,
+        "image": "20260627_154931.jpg",
+        "timestamp": "2026-06-27 15:49:37"
+    },
+    {
+        "hazard": "Pothole",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.548,
+        "image": "20260627_155031.jpg",
+        "timestamp": "2026-06-27 15:50:39"
+    },
+    {
+        "hazard": "Broken Socket",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.533,
+        "image": "20260627_155610.jpg",
+        "timestamp": "2026-06-27 15:56:19"
+    },
+    {
+        "hazard": "Open Drain",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.481,
+        "image": "20260627_155655.jpg",
+        "timestamp": "2026-06-27 15:57:01"
+    },
+    {
+        "hazard": "Uncovered Manhole",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.533,
+        "image": "20260627_155741.jpg",
+        "timestamp": "2026-06-27 15:57:48"
+    },
+    {
+        "hazard": "Broken Fence",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.57,
+        "image": "20260627_155805.jpg",
+        "timestamp": "2026-06-27 15:58:12"
+    },
+    {
+        "hazard": "Broken Fence",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.754,
+        "image": "20260627_160132.jpg",
+        "timestamp": "2026-06-27 16:01:40"
+    },
+    {
+        "hazard": "Uncovered Manhole",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.613,
+        "image": "20260627_160155.jpg",
+        "timestamp": "2026-06-27 16:02:01"
+    },
+    {
+        "hazard": "Broken Fence",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.502,
+        "image": "20260627_160322.jpg",
+        "timestamp": "2026-06-27 16:03:29"
+    },
+    {
+        "hazard": "Uncovered Manhole",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.54,
+        "image": "20260627_160429.jpg",
+        "timestamp": "2026-06-27 16:04:36"
+    },
+    {
+        "hazard": "Uncovered Manhole",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.464,
+        "image": "20260627_160636.jpg",
+        "timestamp": "2026-06-27 16:06:43"
+    },
+    {
+        "hazard": "Uncovered Manhole",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.472,
+        "image": "20260627_160655.jpg",
+        "timestamp": "2026-06-27 16:07:01"
+    },
+    {
+        "hazard": "Damaged Electrical Box",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.613,
+        "image": "20260627_160809.jpg",
+        "timestamp": "2026-06-27 16:08:15"
+    },
+    {
+        "hazard": "missing_broken_barricade",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.953,
+        "image": "20260627_160928.jpg",
+        "timestamp": "2026-06-27 16:09:35"
+    },
+    {
+        "hazard": "Open Restricted Area",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.878,
+        "image": "20260627_161026.jpg",
+        "timestamp": "2026-06-27 16:10:35"
+    },
+    {
+        "hazard": "Open Restricted Area",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.789,
+        "image": "20260627_161207.jpg",
+        "timestamp": "2026-06-27 16:12:18"
+    },
+    {
+        "hazard": "Sharp Object",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.549,
+        "image": "20260627_161245.jpg",
+        "timestamp": "2026-06-27 16:12:50"
+    },
+    {
+        "hazard": "Broken Fence",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.834,
+        "image": "20260627_161304.jpg",
+        "timestamp": "2026-06-27 16:13:13"
+    },
+    {
+        "hazard": "Sharp Object",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.694,
+        "image": "20260627_161350.jpg",
+        "timestamp": "2026-06-27 16:13:56"
+    },
+    {
+        "hazard": "Sharp Object",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.952,
+        "image": "20260627_161540.jpg",
+        "timestamp": "2026-06-27 16:15:47"
+    },
+    {
+        "hazard": "Sharp Object",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.943,
+        "image": "20260627_161645.jpg",
+        "timestamp": "2026-06-27 16:16:53"
+    },
+    {
+        "hazard": "Broken Fence",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.838,
+        "image": "20260627_161750.jpg",
+        "timestamp": "2026-06-27 16:17:57"
+    },
+    {
+        "hazard": "Broken Fence",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.941,
+        "image": "20260627_162034.jpg",
+        "timestamp": "2026-06-27 16:20:43"
+    },
+    {
+        "hazard": "Sharp Object",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.74,
+        "image": "20260627_162057.jpg",
+        "timestamp": "2026-06-27 16:21:05"
+    },
+    {
+        "hazard": "missing_broken_barricade",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.964,
+        "image": "20260627_162219.jpg",
+        "timestamp": "2026-06-27 16:22:26"
+    },
+    {
+        "hazard": "Missing Barricade",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.964,
+        "image": "20260627_162245.jpg",
+        "timestamp": "2026-06-27 16:22:52"
+    },
+    {
+        "hazard": "Missing Barricade",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.964,
+        "image": "20260627_162255.jpg",
+        "timestamp": "2026-06-27 16:23:06"
+    },
+    {
+        "hazard": "Dangling Wire",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.751,
+        "image": "20260627_162334.jpg",
+        "timestamp": "2026-06-27 16:23:40"
+    },
+    {
+        "hazard": "Exposed Live Wire",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.744,
+        "image": "20260627_162352.jpg",
+        "timestamp": "2026-06-27 16:23:59"
+    },
+    {
+        "hazard": "Dangling Wire",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.678,
+        "image": "20260627_162414.jpg",
+        "timestamp": "2026-06-27 16:24:21"
+    },
+    {
+        "hazard": "Damaged Electrical Box",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.898,
+        "image": "20260627_162432.jpg",
+        "timestamp": "2026-06-27 16:24:38"
+    },
+    {
+        "hazard": "Exposed Live Wire",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.696,
+        "image": "20260627_162456.jpg",
+        "timestamp": "2026-06-27 16:25:03"
+    },
+    {
+        "hazard": "Damaged Electrical Box",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.879,
+        "image": "20260627_162516.jpg",
+        "timestamp": "2026-06-27 16:25:22"
+    },
+    {
+        "hazard": "Exposed Live Wire",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.46,
+        "image": "20260627_162536.jpg",
+        "timestamp": "2026-06-27 16:25:41"
+    },
+    {
+        "hazard": "Exposed Live Wire",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.87,
+        "image": "20260627_162552.jpg",
+        "timestamp": "2026-06-27 16:25:58"
+    },
+    {
+        "hazard": "Broken Socket",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.869,
+        "image": "20260627_162609.jpg",
+        "timestamp": "2026-06-27 16:26:14"
+    },
+    {
+        "hazard": "Damaged Electrical Box",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.921,
+        "image": "20260627_162629.jpg",
+        "timestamp": "2026-06-27 16:26:34"
+    },
+    {
+        "hazard": "Broken Socket",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.889,
+        "image": "20260627_162646.jpg",
+        "timestamp": "2026-06-27 16:26:52"
+    },
+    {
+        "hazard": "Broken Socket",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.911,
+        "image": "20260627_162701.jpg",
+        "timestamp": "2026-06-27 16:27:07"
+    },
+    {
+        "hazard": "Damaged Electrical Box",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.863,
+        "image": "20260627_162727.jpg",
+        "timestamp": "2026-06-27 16:27:32"
+    },
+    {
+        "hazard": "Broken Socket",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.841,
+        "image": "20260627_162750.jpg",
+        "timestamp": "2026-06-27 16:27:56"
+    },
+    {
+        "hazard": "Broken Fence",
+        "severity": "Medium",
+        "zone": 0,
+        "confidence": 0.521,
+        "image": "20260627_162828.jpg",
+        "timestamp": "2026-06-27 16:28:35"
+    },
+    {
+        "hazard": "Exposed Live Wire",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.84,
+        "image": "20260627_162852.jpg",
+        "timestamp": "2026-06-27 16:28:58"
+    },
+    {
+        "hazard": "Uncovered Manhole",
+        "severity": "High",
+        "zone": 0,
+        "confidence": 0.513,
+        "image": "20260627_162908.jpg",
+        "timestamp": "2026-06-27 16:29:14"
+    },
+    {
+        "hazard": "Broken Socket",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.833,
+        "image": "20260627_173639.jpg",
+        "timestamp": "2026-06-27 17:36:48"
+    },
+    {
+        "hazard": "Broken Socket",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.604,
+        "image": "20260627_173712.jpg",
+        "timestamp": "2026-06-27 17:37:19"
+    },
+    {
+        "hazard": "Broken Socket",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.604,
+        "image": "20260627_173728.jpg",
+        "timestamp": "2026-06-27 17:37:36"
+    },
+    {
+        "hazard": "Broken Socket",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.601,
+        "image": "20260627_173750.jpg",
+        "timestamp": "2026-06-27 17:37:58"
+    },
+    {
+        "hazard": "Open Restricted Area",
+        "severity": "Medium",
+        "zone": "Campus Road",
+        "confidence": 0.605,
+        "image": "20260627_174127.jpg",
+        "timestamp": "2026-06-27 17:41:36"
+    },
+    {
+        "hazard": "Broken Socket",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.831,
+        "image": "20260627_174152.jpg",
+        "timestamp": "2026-06-27 17:41:59"
+    },
+    {
+        "hazard": "Broken Socket",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.835,
+        "image": "20260627_174222.jpg",
+        "timestamp": "2026-06-27 17:42:30"
+    },
+    {
+        "hazard": "Broken Socket",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.812,
+        "image": "20260627_174249.jpg",
+        "timestamp": "2026-06-27 17:42:56"
+    },
+    {
+        "hazard": "Open Drain",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.831,
+        "image": "20260627_174343.jpg",
+        "timestamp": "2026-06-27 17:43:51"
+    },
+    {
+        "hazard": "Broken Socket",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.6,
+        "image": "20260627_174408.jpg",
+        "timestamp": "2026-06-27 17:44:16"
+    },
+    {
+        "hazard": "Broken Socket",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.6,
+        "image": "20260627_174716.jpg",
+        "timestamp": "2026-06-27 17:47:24"
+    },
+    {
+        "hazard": "Broken Socket",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.812,
+        "image": "20260627_174938.jpg",
+        "timestamp": "2026-06-27 17:49:44"
+    },
+    {
+        "hazard": "Open Restricted Area",
+        "severity": "Medium",
+        "zone": "Campus Road",
+        "confidence": 0.936,
+        "image": "20260627_175027.jpg",
+        "timestamp": "2026-06-27 17:50:36"
+    },
+    {
+        "hazard": "Broken Socket",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.479,
+        "image": "20260627_175138.jpg",
+        "timestamp": "2026-06-27 17:51:45"
     }
 ]

@@ -1,5 +1,6 @@
 import os
 
+from dataset_builder import save_training_sample
 from datetime import datetime
 from flask import Flask
 from flask import request
@@ -53,6 +54,8 @@ def predict():
     predictions = run_all_models(
         image_path
     )
+    print("RAW PREDICTIONS")
+    print(predictions)
 
     if len(predictions) == 0:
 
@@ -78,11 +81,19 @@ def predict():
         predictions,
         zone
     )
+    print(type(features))
     print(features)
 
     result = classify(
         predictions,
         features
+    )
+    
+    result["zone"] = zone
+
+    save_training_sample(
+        features,
+        result["hazard"]
     )
 
     category = get_category(
