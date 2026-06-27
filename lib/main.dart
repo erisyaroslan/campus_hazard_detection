@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:geolocator/geolocator.dart';
+import 'package:campus_hazard_detection/theme/app_theme.dart';
 import 'widgets/bounding_box_painter.dart';
 
 void main() {
@@ -22,8 +23,35 @@ class CampusSafeApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
-        colorSchemeSeed: const Color(0xFF2563EB),
-        scaffoldBackgroundColor: const Color(0xFFF8FAFC),
+        colorSchemeSeed: AppColors.accent,
+        scaffoldBackgroundColor: AppColors.background,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.transparent,
+          foregroundColor: Colors.white,
+          elevation: 0,
+          centerTitle: true,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.accent,
+            foregroundColor: Colors.white,
+            elevation: 0,
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+            ),
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            foregroundColor: AppColors.accent,
+            side: const BorderSide(color: AppColors.sky),
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+            ),
+          ),
+        ),
       ),
       home: const HomePage(),
     );
@@ -70,143 +98,206 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("CampusSafe"), centerTitle: true),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // HERO CARD
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25),
-                  gradient: const LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [Color(0xFF2563EB), Color(0xFF60A5FA)],
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(title: const Text('CampusSafe')),
+      body: Container(
+        decoration: const BoxDecoration(gradient: AppColors.gradient),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: 8),
+                const Icon(
+                  Icons.shield_outlined,
+                  color: Colors.white,
+                  size: 48,
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'Campus Hazard\nDetection',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 28,
+                    fontWeight: FontWeight.w600,
+                    height: 1.2,
+                    letterSpacing: -0.5,
                   ),
                 ),
-                child: const Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 35,
-                      backgroundColor: Colors.white24,
-                      child: Icon(
-                        Icons.shield_outlined,
-                        color: Colors.white,
-                        size: 40,
-                      ),
-                    ),
-                    SizedBox(height: 15),
-                    Text(
-                      "AI Campus Hazard Detection",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      "Detect and report hazards around campus instantly",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white70),
-                    ),
-                  ],
+                const SizedBox(height: 8),
+                Text(
+                  'Capture, analyze, and report hazards instantly',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.85),
+                    fontSize: 15,
+                  ),
                 ),
-              ),
-
-              const SizedBox(height: 30),
-
-              const Text(
-                "Quick Actions",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-
-              const SizedBox(height: 15),
-
-              SizedBox(
-                width: double.infinity,
-                height: 60,
-                child: ElevatedButton.icon(
+                const SizedBox(height: 36),
+                _ActionButton(
+                  icon: Icons.camera_alt_outlined,
+                  label: 'Capture Hazard',
+                  filled: true,
                   onPressed: () => captureImage(context),
-                  icon: const Icon(Icons.camera_alt),
-                  label: const Text(
-                    "Capture Hazard",
-                    style: TextStyle(fontSize: 16),
-                  ),
                 ),
-              ),
-
-              const SizedBox(height: 12),
-
-              SizedBox(
-                width: double.infinity,
-                height: 60,
-                child: OutlinedButton.icon(
+                const SizedBox(height: 12),
+                _ActionButton(
+                  icon: Icons.photo_library_outlined,
+                  label: 'Upload Image',
+                  filled: false,
                   onPressed: () => pickImage(context),
-                  icon: const Icon(Icons.photo_library),
-                  label: const Text(
-                    "Upload Image",
-                    style: TextStyle(fontSize: 16),
+                ),
+                const Spacer(),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 16,
                   ),
-                ),
-              ),
-
-              const SizedBox(height: 30),
-
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Column(
+                  decoration: BoxDecoration(
+                    color: AppColors.surface.withValues(alpha: 0.92),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: AppColors.sky.withValues(alpha: 0.4),
+                    ),
+                  ),
+                  child: Row(
                     children: [
-                      Icon(Icons.auto_awesome, size: 40, color: Colors.blue),
-
-                      SizedBox(height: 10),
-
-                      Text(
-                        "AI-Powered Hazard Detection",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                      _StepDot(label: '1', text: 'Capture'),
+                      Expanded(
+                        child: Container(
+                          height: 1,
+                          color: AppColors.sky.withValues(alpha: 0.5),
                         ),
                       ),
-
-                      SizedBox(height: 10),
-
-                      Text(
-                        "Capture or upload an image and let the system automatically identify campus hazards, assess severity, and generate recommended safety actions.",
-                        textAlign: TextAlign.center,
+                      _StepDot(label: '2', text: 'Analyze'),
+                      Expanded(
+                        child: Container(
+                          height: 1,
+                          color: AppColors.sky.withValues(alpha: 0.5),
+                        ),
                       ),
+                      _StepDot(label: '3', text: 'Report'),
                     ],
                   ),
                 ),
-              ),
-
-              const SizedBox(height: 25),
-
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 8,
+                      height: 8,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF22C55E),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      'AI model ready',
+                      style: TextStyle(
+                        color: AppColors.textSecondary.withValues(alpha: 0.9),
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
                 ),
-                child: const ListTile(
-                  leading: Icon(Icons.check_circle, color: Colors.green),
-                  title: Text("AI Detection Model"),
-                  subtitle: Text("Ready for deployment"),
-                ),
-              ),
-            ],
+                const SizedBox(height: 24),
+              ],
+            ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _ActionButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final bool filled;
+  final VoidCallback onPressed;
+
+  const _ActionButton({
+    required this.icon,
+    required this.label,
+    required this.filled,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (filled) {
+      return SizedBox(
+        height: 54,
+        child: ElevatedButton.icon(
+          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white,
+            foregroundColor: AppColors.primary,
+          ),
+          icon: Icon(icon, size: 22),
+          label: Text(
+            label,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          ),
+        ),
+      );
+    }
+
+    return SizedBox(
+      height: 54,
+      child: OutlinedButton.icon(
+        onPressed: onPressed,
+        style: OutlinedButton.styleFrom(
+          foregroundColor: Colors.white,
+          side: BorderSide(color: Colors.white.withValues(alpha: 0.5)),
+        ),
+        icon: Icon(icon, size: 22),
+        label: Text(
+          label,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+        ),
+      ),
+    );
+  }
+}
+
+class _StepDot extends StatelessWidget {
+  final String label;
+  final String text;
+
+  const _StepDot({required this.label, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          width: 28,
+          height: 28,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: AppColors.accent.withValues(alpha: 0.12),
+            shape: BoxShape.circle,
+          ),
+          child: Text(
+            label,
+            style: const TextStyle(
+              color: AppColors.primary,
+              fontWeight: FontWeight.w600,
+              fontSize: 13,
+            ),
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          text,
+          style: const TextStyle(color: AppColors.textSecondary, fontSize: 11),
+        ),
+      ],
     );
   }
 }
@@ -391,210 +482,269 @@ class _PreviewScreenState extends State<PreviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Hazard Detection")),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.08),
-                    blurRadius: 20,
-                    offset: const Offset(0, 10),
-                  ),
-                ],
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(25),
-                child: SizedBox(
-                  height: 320,
-                  width: double.infinity,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      return Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          Image.file(widget.image, fit: BoxFit.fill),
+    final hasResult = !isLoading && result != "Press Detect Hazard";
 
-                          if (boxes.isNotEmpty)
-                            Positioned.fill(
-                              child: IgnorePointer(
-                                child: CustomPaint(
-                                  painter: BoundingBoxPainter(
-                                    boxes: boxes,
-                                    imageWidth: imageWidth,
-                                    imageHeight: imageHeight,
-                                  ),
+    return GradientScaffold(
+      title: 'Hazard Detection',
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: SizedBox(
+                    height: 280,
+                    width: double.infinity,
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        Image.file(widget.image, fit: BoxFit.cover),
+                        if (boxes.isNotEmpty)
+                          Positioned.fill(
+                            child: IgnorePointer(
+                              child: CustomPaint(
+                                painter: BoundingBoxPainter(
+                                  boxes: boxes,
+                                  imageWidth: imageWidth,
+                                  imageHeight: imageHeight,
                                 ),
                               ),
                             ),
-                        ],
-                      );
-                    },
+                          ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ),
 
-            const SizedBox(height: 25),
+                const SizedBox(height: 20),
 
-            const SizedBox(height: 25),
-
-            SizedBox(
-              width: double.infinity,
-              height: 60,
-              child: ElevatedButton.icon(
-                onPressed: isLoading ? null : detectHazard,
-                icon: const Icon(Icons.auto_awesome),
-                label: const Text(
-                  "Analyze Hazard",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                SectionCard(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Location Zone',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.textSecondary,
+                          letterSpacing: 0.3,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      DropdownButtonFormField<String>(
+                        isExpanded: true,
+                        initialValue: selectedZone,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: AppColors.background,
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 12,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                        items: zones.map((zone) {
+                          return DropdownMenuItem(
+                            value: zone,
+                            child: Text(zone),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() => selectedZone = value!);
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ),
 
-            const SizedBox(height: 25),
+                const SizedBox(height: 16),
 
-            if (isLoading)
-              const Column(
-                children: [
-                  CircularProgressIndicator(),
-                  SizedBox(height: 15),
-                  Text("AI is analyzing image..."),
-                ],
-              ),
-
-            if (!isLoading && result != "Press Detect Hazard")
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(25),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 15,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    const Icon(
-                      Icons.warning_amber_rounded,
-                      color: Colors.orange,
-                      size: 70,
-                    ),
-
-                    const SizedBox(height: 15),
-
-                    const Text(
-                      "Detection Result",
+                SizedBox(
+                  height: 52,
+                  child: ElevatedButton.icon(
+                    onPressed: isLoading ? null : detectHazard,
+                    icon: const Icon(Icons.auto_awesome_outlined, size: 20),
+                    label: const Text(
+                      'Analyze Hazard',
                       style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
+                  ),
+                ),
 
-                    const SizedBox(height: 20),
+                if (isLoading) ...[
+                  const SizedBox(height: 32),
+                  const Center(
+                    child: CircularProgressIndicator(color: Colors.white),
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    'Analyzing image…',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.9),
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
 
-                    Column(
+                if (hasResult) ...[
+                  const SizedBox(height: 24),
+                  SectionCard(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Primary Hazard",
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-
-                        const SizedBox(height: 10),
-
-                        Card(
-                          color: Colors.orange.shade50,
-                          child: ListTile(
-                            leading: const Icon(
-                              Icons.warning,
-                              color: Colors.orange,
-                            ),
-                            title: Text(hazardClass),
-                            subtitle: Text(
-                              "Confidence: ${((double.tryParse(confidence) ?? 0.0) * 100).toStringAsFixed(1)}%",
-                            ),
-                            trailing: Text(
-                              severity,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: AppColors.accent.withValues(alpha: 0.1),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: const Icon(
+                                Icons.warning_amber_rounded,
+                                color: AppColors.accent,
+                                size: 24,
                               ),
                             ),
-                          ),
-                        ),
-
-                        const SizedBox(height: 25),
-
-                        const Text(
-                          "Detected Hazards",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-
-                        const SizedBox(height: 10),
-
-                        ...detectedHazards.map((hazard) {
-                          return Card(
-                            child: ListTile(
-                              leading: const Icon(Icons.report_problem),
-
-                              title: Text(hazard["hazard"]),
-
-                              subtitle: Text(
-                                "Confidence: ${(hazard["confidence"] * 100).toStringAsFixed(1)}%",
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Primary Hazard',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: AppColors.textSecondary,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    hazardClass,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.textPrimary,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          );
-                        }),
-
-                        const SizedBox(height: 25),
-
-                        Card(
-                          child: ListTile(
-                            leading: const Icon(Icons.location_on),
-                            title: const Text("Campus Zone"),
-                            subtitle: Text(selectedZone),
-                          ),
+                            SeverityBadge(severity: severity),
+                          ],
                         ),
-
-                        Card(
-                          child: ListTile(
-                            leading: const Icon(Icons.category),
-                            title: const Text("Category"),
-                            subtitle: Text(category),
-                          ),
-                        ),
-
-                        Card(
-                          child: ListTile(
-                            leading: const Icon(Icons.auto_awesome),
-                            title: const Text("Recommended Action"),
-                            subtitle: Text(action),
-                          ),
+                        const SizedBox(height: 12),
+                        InfoRow(
+                          icon: Icons.percent_outlined,
+                          label: 'Confidence',
+                          value:
+                              '${((double.tryParse(confidence) ?? 0.0) * 100).toStringAsFixed(1)}%',
                         ),
                       ],
                     ),
+                  ),
 
-                    const SizedBox(height: 25),
+                  if (detectedHazards.isNotEmpty) ...[
+                    const SizedBox(height: 12),
+                    SectionCard(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'All Detected',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.textSecondary,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          ...detectedHazards.map((hazard) {
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 8),
+                              child: Row(
+                                children: [
+                                  const Icon(
+                                    Icons.circle,
+                                    size: 6,
+                                    color: AppColors.accent,
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Expanded(
+                                    child: Text(
+                                      hazard['hazard'] as String,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    '${(hazard['confidence'] * 100).toStringAsFixed(0)}%',
+                                    style: const TextStyle(
+                                      color: AppColors.textSecondary,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }),
+                        ],
+                      ),
+                    ),
+                  ],
 
-                    ElevatedButton.icon(
-                      icon: const Icon(Icons.report),
-                      label: const Text("Report Hazard"),
+                  const SizedBox(height: 12),
+
+                  SectionCard(
+                    child: Column(
+                      children: [
+                        InfoRow(
+                          icon: Icons.location_on_outlined,
+                          label: 'Zone',
+                          value: selectedZone,
+                        ),
+                        const Divider(height: 24),
+                        InfoRow(
+                          icon: Icons.category_outlined,
+                          label: 'Category',
+                          value: category,
+                        ),
+                        const Divider(height: 24),
+                        InfoRow(
+                          icon: Icons.lightbulb_outline,
+                          label: 'Recommended Action',
+                          value: action,
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  SizedBox(
+                    height: 52,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primary,
+                      ),
+                      icon: const Icon(Icons.report_outlined, size: 20),
+                      label: const Text(
+                        'Report Hazard',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -605,58 +755,17 @@ class _PreviewScreenState extends State<PreviewScreen> {
                               category: category,
                               confidence: confidence,
                               action: action,
+                              location: selectedZone,
                             ),
                           ),
                         );
                       },
                     ),
-
-                    const SizedBox(height: 25),
-
-                    Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Location Zone",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-
-                            const SizedBox(height: 10),
-
-                            DropdownButtonFormField<String>(
-                              isExpanded: true,
-                              value: selectedZone,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                              ),
-                              items: zones.map((zone) {
-                                return DropdownMenuItem(
-                                  value: zone,
-                                  child: Text(zone),
-                                );
-                              }).toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedZone = value!;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-          ],
-        ),
-      ),
+                  ),
+                ],
+              ],
+            ),
+          ),
     );
   }
 }

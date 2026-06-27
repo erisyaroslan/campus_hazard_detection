@@ -828,5 +828,61 @@
         "confidence": 0.479,
         "image": "20260627_175138.jpg",
         "timestamp": "2026-06-27 17:51:45"
+    },
+    {
+        "hazard": "Broken Socket",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.422,
+        "image": "20260627_213826.jpg",
+        "timestamp": "2026-06-27 21:38:41"
+    },
+    {
+        "hazard": "Broken Socket",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.418,
+        "image": "20260627_224116.jpg",
+        "timestamp": "2026-06-27 22:41:38"
+    },
+    {
+        "hazard": "Open Drain",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.859,
+        "image": "20260627_230753.jpg",
+        "timestamp": "2026-06-27 23:08:08"
+    },
+    {
+        "hazard": "Open Drain",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.859,
+        "image": "20260627_230945.jpg",
+        "timestamp": "2026-06-27 23:09:52"
+    },
+    {
+        "hazard": "Open Drain",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.859,
+        "image": "20260627_231019.jpg",
+        "timestamp": "2026-06-27 23:10:28"
+    },
+    {
+        "hazard": "Open Drain",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.859,
+        "image": "20260627_232846.jpg",
+        "timestamp": "2026-06-27 23:28:56"
+    },
+    {
+        "hazard": "Open Drain",
+        "severity": "High",
+        "zone": "Campus Road",
+        "confidence": 0.859,
+        "image": "20260627_233859.jpg",
+        "timestamp": "2026-06-27 23:39:07"
     }
 ]
